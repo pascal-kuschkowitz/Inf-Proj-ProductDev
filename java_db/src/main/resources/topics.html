@@ -15,14 +15,50 @@
       }
       .main {
         padding-top: 2rem;
+        display: inline-block;
       }
       .wrapper {
-        padding: 0rem 10rem;
+        padding: 2rem 10rem;
+        box-sizing: content-box;
+        margin: 0 auto;
+        max-width: 100rem;
+        position: relative;
       }
+      div {
+        display: inline-block;
+      }
+
+      html {
+        color: $black;
+        overflow-y: scroll;
+        overflow-x: hidden;
+        cursor: default;
+        position: relative;
+        height: 100%;
+        -webkit-tap-highlight-color: rgba($black, 0.5);
+      }
+
+      body {
+        height: 100%;
+        // font: inherit;
+      }
+
+      main {
+        min-height: calc(100% - 12.2rem);
+        position: relative;
+      }
+
+      html,
+      body {
+        position: relative;
+        overflow-x: hidden;
+      }
+
       a,
       a:hover,
       a:visited,
       a:active {
+        display: inline;
         color: inherit;
         text-decoration: none;
       }
@@ -33,7 +69,14 @@
         padding: 1rem 2rem;
       }
 
-      .post {
+      .topics {
+        padding-top: 2rem;
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 1rem;
+      }
+
+      .topic {
         display: inline-block;
         padding: 2rem 3rem;
         box-shadow: 0px 0px 22px 7px rgba(0, 0, 0, 0.03);
@@ -107,45 +150,34 @@
 
     <main>
       <div class="wrapper">
-        <h1>Add a new post</h1>
-        <div class="mb-3">
-          <label for="exampleFormControlInput1" class="form-label"
-            >Title
-          </label>
-          <input
-            type="text"
-            class="form-control"
-            id="title"
-            placeholder="Dogs are cool!"
-          />
-        </div>
-        <div class="mb-3">
-          <label for="exampleFormControlInput1" class="form-label"
-            >Topic
-          </label>
-          <input
-            type="text"
-            class="form-control"
-            id="topic"
-            placeholder="Animals"
-          />
-        </div>
-        <div class="mb-3">
-          <label for="exampleFormControlInput1" class="form-label"
-            >Username
-          </label>
-          <input
-            type="text"
-            class="form-control"
-            id="name"
-            placeholder="Till1234"
-          />
-        </div>
-        <div class="mb-3">
-          <label for="exampleFormControlTextarea1" class="form-label"
-            >Your post
-          </label>
-          <textarea class="form-control" id="post" rows="5"></textarea>
+        <h1>Choose your favorite topic!</h1>
+
+        <div class="topics">
+          <!-- Dynamically load every topic w/ foreach-->
+          <a href="">
+            <div class="topic">
+              <h2>Animals</h2>
+              <p>This is about animals</p>
+            </div>
+          </a>
+          <a href="">
+            <div class="topic">
+              <h2>Tiere</h2>
+              <p>This is about animals</p>
+            </div>
+          </a>
+          <a href="">
+            <div class="topic">
+              <h2>Tiere</h2>
+              <p>This is about animals</p>
+            </div>
+          </a>
+          <a href="">
+            <div class="topic">
+              <h2>Tiere</h2>
+              <p>This is about animals</p>
+            </div>
+          </a>
         </div>
       </div>
     </main>
