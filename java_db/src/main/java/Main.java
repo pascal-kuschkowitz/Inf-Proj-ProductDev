@@ -1,5 +1,8 @@
 import static spark.Spark.get;
+import static spark.Spark.post;
 
+import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -9,13 +12,21 @@ import spark.ModelAndView;
 import spark.template.velocity.VelocityTemplateEngine;
 
 public class Main {
-    public static void main(final String[] args) {
-        get("/hello", (request, response) -> {
+
+    public static void main(final String[] args) throws ClassNotFoundException {
+        Database db = new Database();
+
+        get("/", (request, response) -> {
             Map<String, Object> model = new HashMap<>();
             model.put("message", "Velocity World");
+            return new ModelAndView(model, "index.html");
+        }, new VelocityTemplateEngine());
+        get("/users", (request, response) -> {
+            ArrayList<User> users = db.getUsers();
 
-            // The vm files are located under the resources directory
-            return new ModelAndView(model, "hello.vm");
+            Map<String, Object> model = new HashMap<>();
+            model.put("users", users);
+            return new ModelAndView(model, "users.html");
         }, new VelocityTemplateEngine());
     }
 }

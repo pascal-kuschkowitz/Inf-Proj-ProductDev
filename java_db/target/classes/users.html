@@ -1,0 +1,10 @@
+<ul>
+#foreach( $user in $users )
+    <li>$user.getName(), born on $user.getBirth()</li>
+    <ul>
+    #foreach( $topic in $user.getFavouriteTopics() )
+        <li>$topic.getName()</li>
+    #end
+    </ul>
+#end
+</ul>
