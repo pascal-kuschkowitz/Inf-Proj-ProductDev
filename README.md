@@ -1,4 +1,4 @@
-# [Project Name Here]
+# Social Blog
 
 ## Use
 

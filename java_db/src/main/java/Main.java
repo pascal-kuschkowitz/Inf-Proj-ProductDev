@@ -22,7 +22,7 @@ public class Main {
             return new ModelAndView(model, "index.html");
         }, new VelocityTemplateEngine());
         get("/users", (request, response) -> {
-            ArrayList<Database.User> users = db.get_users();
+            ArrayList<User> users = db.getUsers();
 
             Map<String, Object> model = new HashMap<>();
             model.put("users", users);
