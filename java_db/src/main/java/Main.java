@@ -21,6 +21,32 @@ public class Main {
             model.put("message", "Velocity World");
             return new ModelAndView(model, "home.html");
         }, new VelocityTemplateEngine());
+
+        get("/test", (request, response) -> {
+            ArrayList<User> users = db.getUsers();
+            ArrayList<Topic> topics = db.getTopics();
+            ArrayList<Post> posts = db.getPosts();
+            Map<String, Object> model = new HashMap<>();
+            model.put("users", users);
+            model.put("topics", topics);
+            model.put("posts", posts);
+            return new ModelAndView(model, "test.html");
+        }, new VelocityTemplateEngine());
+
+        get("/topics", (request, response) -> {
+            ArrayList<Topic> topics = db.getTopics();
+            Map<String, Object> model = new HashMap<>();
+            model.put("topics", topics);
+            return new ModelAndView(model, "topics.html");
+        }, new VelocityTemplateEngine());
+
+        get("/topic/:name", (request, response) -> {
+            Topic topic = db.getTopic(request.params(":name"));
+            Map<String, Object> model = new HashMap<>();
+            model.put("topic", topic);
+            return new ModelAndView(model, "topic.html");
+        }, new VelocityTemplateEngine());
+
         get("/users", (request, response) -> {
             ArrayList<User> users = db.getUsers();
 
@@ -28,21 +54,10 @@ public class Main {
             model.put("users", users);
             return new ModelAndView(model, "users.html");
         }, new VelocityTemplateEngine());
+
         get("/newPost", (request, response) -> {
             Map<String, Object> model = new HashMap<>();
             return new ModelAndView(model, "newPost.html");
-        }, new VelocityTemplateEngine());
-        get("/topics/:name", (request, response) -> {
-            Topic topic = db.getTopic(request.params(":name"));
-            Map<String, Object> model = new HashMap<>();
-            model.put("topic", topic);
-            return new ModelAndView(model, "topic.html");
-        }, new VelocityTemplateEngine());
-        get("/topics", (request, response) -> {
-            ArrayList<Topic> topics = db.getTopics();
-            Map<String, Object> model = new HashMap<>();
-            model.put("topics", topics);
-            return new ModelAndView(model, "topics.html");
         }, new VelocityTemplateEngine());
     }
 }
