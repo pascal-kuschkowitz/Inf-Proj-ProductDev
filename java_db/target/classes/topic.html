@@ -29,7 +29,6 @@
       }
 
       html {
-        color: $black;
         overflow-y: scroll;
         overflow-x: hidden;
         cursor: default;
@@ -58,7 +57,7 @@
       a:hover,
       a:visited,
       a:active {
-        display: inline;
+        display: inline-block;
         color: inherit;
         text-decoration: none;
       }
@@ -69,14 +68,7 @@
         padding: 1rem 2rem;
       }
 
-      .topics {
-        padding-top: 2rem;
-        display: grid;
-        grid-template-columns: repeat(4, minmax(0, 1fr));
-        gap: 1rem;
-      }
-
-      .topic {
+      .post {
         display: inline-block;
         padding: 2rem 3rem;
         box-shadow: 0px 0px 22px 7px rgba(0, 0, 0, 0.03);
@@ -150,19 +142,23 @@
 
     <main>
       <div class="wrapper">
-        <h1>Choose your favorite topic!</h1>
+        <h1></h1>
+        <p>
+          This topic is all about animals. It is sooo boring but you
+          theoretically can read on. Go on, this is just a placeholder without
+          any sensible information.
+        </p>
 
-        <div class="topics">
-          <!-- Dynamically load every topic w/ foreach-->
-          #foreach($topic in $topics)
-          <a href="">
-            <div class="topic">
-              <h2>$topic.getName()</h2>
-              <p>This is about animals</p>
-            </div>
-          </a>
-          #end
-        </div>
+        <h2>These are the latest posts in this topic:</h2>
+        <p>TODO: Include posts dynamically, sort by date</p>
+
+        <a href="">
+          <div class="post">
+            <div class="date">12.33.2004</div>
+            <h2 class="title">Mein Blog1</h2>
+            <p class="content">Lorem ipsum bla bla bla bla bla bla bla bla</p>
+          </div>
+        </a>
       </div>
     </main>
   </body>
