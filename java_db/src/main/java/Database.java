@@ -123,6 +123,23 @@ public class Database {
         }
     }
 
+    public ArrayList<Topic> getTopics() {
+        try {
+            ResultSet rs = query("select topicName from topic");
+            ArrayList<Topic> topics = new ArrayList<Topic>();
+            while (rs.next()) {
+                topics.add(new Topic(
+                        rs.getString("topicName"),
+                        this
+                ));
+            }
+            return topics;
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+            return null;
+        }
+    }
+
     public Topic getTopic(String name) {
         try {
             ResultSet rs = query("select * from topic where topicName == " + name);

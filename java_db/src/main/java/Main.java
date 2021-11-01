@@ -32,12 +32,16 @@ public class Main {
             Map<String, Object> model = new HashMap<>();
             return new ModelAndView(model, "newPost.html");
         }, new VelocityTemplateEngine());
-        get("/topic", (request, response) -> {
+        get("/topics/:name", (request, response) -> {
+            Topic topic = db.getTopic(request.params(":name"));
             Map<String, Object> model = new HashMap<>();
+            model.put("topic", topic);
             return new ModelAndView(model, "topic.html");
         }, new VelocityTemplateEngine());
         get("/topics", (request, response) -> {
+            ArrayList<Topic> topics = db.getTopics();
             Map<String, Object> model = new HashMap<>();
+            model.put("topics", topics);
             return new ModelAndView(model, "topics.html");
         }, new VelocityTemplateEngine());
     }

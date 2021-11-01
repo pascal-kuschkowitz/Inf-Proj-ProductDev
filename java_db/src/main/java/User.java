@@ -31,7 +31,7 @@ public class User {
     public String getBirth() {
         return "" + birthDay + "." + birthMonth + "." + birthYear;
     }
-    public ArrayList<Topic> getFavouriteTopics() {
+    public ArrayList<Topic> getTopics() {
         try {
             ResultSet rs = db.query("select topic.topicName from favourite, topic where favourite.userName == '" + name + "' and favourite.topicName == topic.topicName");
             ArrayList<Topic> topics = new ArrayList<Topic>();
