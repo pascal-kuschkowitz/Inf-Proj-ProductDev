@@ -36,39 +36,6 @@ public class Database {
         }
     }
 
-    private void create() {
-        update("drop table if exists user");
-        update("drop table if exists post");
-        update("drop table if exists topic");
-        update("drop table if exists favourite");
-
-        update("create table user (userName char(128), birthYear int, birthMonth int, birthDay int)");
-
-        update("create table post (postId int, title char(128), content char(1000000), year int, month int, day int, userName char(128), topicName char(128))");
-
-        update("create table topic (topicName char(128))");
-        update("create table favourite (userName char(128), topicName char(128))");
-    }
-
-    private void fill() {
-        // TODO: replace with abstraction
-        update("insert into user values('chris', 1100, 12, 12)");
-        update("insert into user values('pascal', 9999, 10, 1)");
-        update("insert into user values('kathi', 1, 12, 24)");
-
-        update("insert into topic values('cheese')");
-        update("insert into topic values('trains')");
-        update("insert into topic values('peace')");
-
-        update("insert into favourite values('chris', 'peace')");
-        update("insert into favourite values('chris', 'trains')");
-        update("insert into favourite values('chris', 'peace')");
-        update("insert into favourite values('pascal', 'trains')");
-
-        update("insert into post values(0, 'Why Trains are the Better Pets', 'bam, I like cheese', 2021, 11, 1, 'chris', 'trains')");
-        update("insert into post values(0, 'Frontends Suck!', 'Yes, they do!', 2021, 13, 1, 'pascal', 'peace')");
-    }
-
     public void update(String cmd) {
         try {
             statement.executeUpdate(cmd);
@@ -88,37 +55,60 @@ public class Database {
         }
     }
 
+    private void create() {
+        update("drop table if exists user");
+        update("drop table if exists post");
+        update("drop table if exists topic");
+        update("drop table if exists favourite");
+
+        update("create table user (userName char(128), birthYear int, birthMonth int, birthDay int)");
+
+        update("create table post (postId int, title char(128), content char(1000000), year int, month int, day int, userName char(128), topicName char(128))");
+
+        update("create table topic (topicName char(128))");
+        update("create table favourite (userName char(128), topicName char(128))");
+    }
+
+    private void fill() {
+        User chris = createUser("chris", 1100, 12, 12);
+        User pascal = createUser("pascal", 9999, 10, 1);
+        User kathi = createUser("kathi", 1, 12, 24);
+        User tim = createUser("tim", 1, 12, 24);
+
+        Topic cheese = createTopic("cheese");
+        Topic trains = createTopic("trains");
+        Topic peace = createTopic("peace");
+
+        chris.addFavouriteTopic(peace);
+        chris.addFavouriteTopic(trains);
+        pascal.addFavouriteTopic(trains);
+
+        createPost("Why Trains are the Better Pets", "bam, I like cheese", 2021, 11, 1, chris, trains);
+        createPost("Frontends Suck!", "Yes, they do!", 2021, 13, 1, pascal, peace);
+        createPost("Backends are good!", "So what?", 2022, 13, 1, tim, peace);
+    }
+
     // data loader
     public ArrayList<User> getUsers() {
         try {
             ResultSet rs = query("select * from user");
             ArrayList<User> users = new ArrayList<User>();
             while (rs.next()) {
-                users.add(new User(
-                        rs.getString("userName"),
-                        rs.getInt("birthYear"),
-                        rs.getInt("birthMonth"),
-                        rs.getInt("birthDay"),
-                        this
-                ));
+                users.add(new User(rs.getString("userName"), rs.getInt("birthYear"), rs.getInt("birthMonth"),
+                        rs.getInt("birthDay"), this));
             }
             return users;
         } catch (SQLException e) {
-                System.err.println(e.getMessage());
-                return null;
+            System.err.println(e.getMessage());
+            return null;
         }
     }
 
     public User getUser(String name) {
         try {
             ResultSet rs = query("select * from user where userName == '" + name + "'");
-            return new User(
-                rs.getString("userName"),
-                rs.getInt("birthYear"),
-                rs.getInt("birthMonth"),
-                rs.getInt("birthDay"),
-                this
-            );
+            return new User(rs.getString("userName"), rs.getInt("birthYear"), rs.getInt("birthMonth"),
+                    rs.getInt("birthDay"), this);
         } catch (SQLException e) {
             System.err.println(e.getMessage());
             return null;
@@ -130,10 +120,7 @@ public class Database {
             ResultSet rs = query("select * from topic");
             ArrayList<Topic> topics = new ArrayList<Topic>();
             while (rs.next()) {
-                topics.add(new Topic(
-                        rs.getString("topicName"),
-                        this
-                ));
+                topics.add(new Topic(rs.getString("topicName"), this));
             }
             return topics;
         } catch (SQLException e) {
@@ -145,10 +132,7 @@ public class Database {
     public Topic getTopic(String name) {
         try {
             ResultSet rs = query("select * from topic where topicName == '" + name + "'");
-            return new Topic(
-                rs.getString("topicName"),
-                this
-            );
+            return new Topic(rs.getString("topicName"), this);
         } catch (SQLException e) {
             System.err.println(e.getMessage());
             return null;
@@ -160,17 +144,9 @@ public class Database {
             ResultSet rs = query("select * from post");
             ArrayList<Post> posts = new ArrayList<Post>();
             while (rs.next()) {
-                posts.add(new Post(
-                        rs.getInt("postID"),
-                        rs.getString("title"),
-                        rs.getString("content"),
-                        rs.getInt("year"),
-                        rs.getInt("month"),
-                        rs.getInt("day"),
-                        rs.getString("userName"),
-                        rs.getString("topicName"),
-                        this
-                ));
+                posts.add(new Post(rs.getInt("postID"), rs.getString("title"), rs.getString("content"),
+                        rs.getInt("year"), rs.getInt("month"), rs.getInt("day"), rs.getString("userName"),
+                        rs.getString("topicName"), this));
             }
             return posts;
         } catch (SQLException e) {
@@ -182,20 +158,21 @@ public class Database {
     public Post getPost(int postId) {
         try {
             ResultSet rs = query("select * from post where postId == '" + postId + "'");
-            return new Post(
-                    rs.getInt("postID"),
-                    rs.getString("title"),
-                    rs.getString("content"),
-                    rs.getInt("year"),
-                    rs.getInt("month"),
-                    rs.getInt("day"),
-                    rs.getString("userName"),
-                    rs.getString("topicName"),
-                    this
-            );
+            return new Post(rs.getInt("postID"), rs.getString("title"), rs.getString("content"), rs.getInt("year"),
+                    rs.getInt("month"), rs.getInt("day"), rs.getString("userName"), rs.getString("topicName"), this);
         } catch (SQLException e) {
             System.err.println(e.getMessage());
             return null;
+        }
+    }
+
+    public int getPostCount() {
+        try {
+            ResultSet rs = query("select count(*) from post");
+            return rs.getInt("count(*)");
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+            return 0;
         }
     }
 
@@ -204,5 +181,21 @@ public class Database {
         User user = new User(name, birthYear, birthMonth, birthDay, this);
         update("insert into user values('" + name + "', " + birthYear + ", " + birthMonth + ", " + birthDay + ")");
         return user;
+    }
+
+    public Topic createTopic(String name) {
+        Topic topic = new Topic(name, this);
+        update("insert into topic values('" + name + "')");
+        return topic;
+    }
+
+    public Post createPost(String title, String content, int year, int month, int day, User user, Topic topic) {
+        int new_id = getPostCount();
+        String userName = user.getName();
+        String topicName = topic.getName();
+        Post post = new Post(new_id, title, content, year, month, day, userName, topicName, this);
+        update("insert into post values(" + new_id + ", '" + title + "', '" + content + "', " + year + ", " + month
+                + ", " + day + ", '" + userName + "', '" + topicName + "')");
+        return post;
     }
 }

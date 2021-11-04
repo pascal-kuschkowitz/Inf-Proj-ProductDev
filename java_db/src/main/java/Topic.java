@@ -15,6 +15,7 @@ public class Topic {
     public String getName() {
         return name;
     }
+
     public ArrayList<User> getUsers() {
         try {
             ResultSet rs = db.query("select user.* from favourite, user where favourite.topicName == '" + name + "' and favourite.userName == user.userName");
@@ -29,6 +30,30 @@ public class Topic {
                 ));
             }
             return users;
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+            return null;
+        }
+    }
+
+    public ArrayList<Post> getPosts() {
+        try {
+            ResultSet rs = db.query("select * from post where topicName == '" + name + "'");
+            ArrayList<Post> posts = new ArrayList<Post>();
+            while (rs.next()) {
+                posts.add(new Post(
+                        rs.getInt("postID"),
+                        rs.getString("title"),
+                        rs.getString("content"),
+                        rs.getInt("year"),
+                        rs.getInt("month"),
+                        rs.getInt("day"),
+                        rs.getString("userName"),
+                        rs.getString("topicName"),
+                        db
+                ));
+            }
+            return posts;
         } catch (SQLException e) {
             System.err.println(e.getMessage());
             return null;
