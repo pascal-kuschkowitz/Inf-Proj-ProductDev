@@ -155,9 +155,9 @@
         <div class="topics">
           <!-- Dynamically load every topic w/ foreach-->
           #foreach($topic in $topics)
-          <a href="">
+          <a href="topics/$topic.getName()">
             <div class="topic">
-              <h2>$topic.getName()</h2>
+              <h2 style="text-transform: capitalize">$topic.getName()</h2>
               <p>This is about animals</p>
             </div>
           </a>

@@ -40,7 +40,7 @@ public class Main {
             return new ModelAndView(model, "topics.html");
         }, new VelocityTemplateEngine());
 
-        get("/topic/:name", (request, response) -> {
+        get("/topics/:name", (request, response) -> {
             Topic topic = db.getTopic(request.params(":name"));
             Map<String, Object> model = new HashMap<>();
             model.put("topic", topic);
@@ -49,10 +49,16 @@ public class Main {
 
         get("/users", (request, response) -> {
             ArrayList<User> users = db.getUsers();
-
             Map<String, Object> model = new HashMap<>();
             model.put("users", users);
-            return new ModelAndView(model, "users.html");
+            return new ModelAndView(model, "userss.html");
+        }, new VelocityTemplateEngine());
+
+        get("/users/:name", (request, response) -> {
+            User user = db.getUser(request.params(":name"));
+            Map<String, Object> model = new HashMap<>();
+            model.put("user", user);
+            return new ModelAndView(model, "user.html");
         }, new VelocityTemplateEngine());
 
         get("/newPost", (request, response) -> {

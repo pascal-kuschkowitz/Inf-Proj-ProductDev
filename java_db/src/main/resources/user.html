@@ -142,15 +142,13 @@
 
     <main>
       <div class="wrapper">
-        <h1 style="text-transform: capitalize">$topic.getName()</h1>
-        <p>
-          This topic is all about animals. It is sooo boring but you
-          theoretically can read on. Go on, this is just a placeholder without
-          any sensible information.
-        </p>
+        <h1 style="text-transform: capitalize">$user.getName()</h1>
 
-        <h2>These are the latest posts in this topic:</h2>
-        <p>TODO: Include posts dynamically, sort by date</p>
+        <p>I am born on the $user.getBirth()</p>
+        <h2>These are all my favorite topics</h2>
+        #foreach( $topic in $user.getTopics() )
+        <li>$topic.getName()</li>
+        #end
 
         <a href="">
           <div class="post">
