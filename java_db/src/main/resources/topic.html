@@ -150,15 +150,16 @@
         </p>
 
         <h2>These are the latest posts in this topic:</h2>
-        <p>TODO: Include posts dynamically, sort by date</p>
 
-        <a href="">
+        #foreach( $post in $topic.getPosts())
+        <a href="/posts/$post.getPostId()">
           <div class="post">
-            <div class="date">12.33.2004</div>
-            <h2 class="title">Mein Blog1</h2>
-            <p class="content">Lorem ipsum bla bla bla bla bla bla bla bla</p>
+            <div class="date">$post.getDate()</div>
+            <h2 class="title">$post.getTitle()</h2>
+            <p class="readOn">Click to continue reading</p>
           </div>
         </a>
+        #end
       </div>
     </main>
   </body>

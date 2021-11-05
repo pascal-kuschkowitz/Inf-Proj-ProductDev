@@ -159,11 +159,10 @@
 
         <div class="topics">
         #foreach( $user in $users )
-          <a href="topics/$topic.getName()">
+          <a href="/users/$user.getName()">
             <div class="topic">
               <h2 style="text-transform: capitalize">$user.getName()</h2>
               <p>born on $user.getBirth()</p>
-              <h3> Favorite topics</h3>
             </div>
           </a>
           #end

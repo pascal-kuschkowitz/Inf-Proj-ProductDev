@@ -142,26 +142,15 @@
 
     <main>
       <div class="wrapper">
-        <h1 style="text-transform: capitalize">$user.getName()</h1>
+        <h1 style="text-transform: capitalize">$post.getTitle()</h1>
+        <p> Posted on the $post.getDate()</p>
 
-        <p>I am born on the $user.getBirth()</p>
-        <h2>These are all my favorite topics</h2>
-        #foreach( $topic in $user.getTopics() )
-        <li>$topic.getName()</li>
-        #end
+        <a href="/topics/$post.getTopic().getName()"><h2 class="py-1 px-2" style="background-color: blue; color: white; text-transform: uppercase; font-size: 1.5rem;">$post.getTopic().getName()</h2></a>
 
-        <div class="px-6">
-            <h2><p style="text-transform: capitalize">$user.getName() latest posts:</p></h2>
-        #foreach( $post in $user.getPosts() )
-        <a href="/posts/$post.getPostId()">
-          <div class="post">
-            <div class="date">$post.getDate()</div>
-            <h2 class="title">$post.getTitle()</h2>
-            <p class="readOn">Click to continue reading</p>
-          </div>
-        </a>
-        #end
-        </div>
+        <p><a href="/users/$post.getUser().getName()">Posted by $post.getUser().getName()</a></p>
+
+        <p @html>$post.getContent()</p>
+
       </div>
     </main>
   </body>
