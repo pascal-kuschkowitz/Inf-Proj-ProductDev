@@ -115,13 +115,15 @@
       <div class="wrapper">
         <h1>Top blog posts</h1>
 
+        #foreach( $post in $sortTool.sort($posts, "date:desc"))
         <a href="">
-          <div class="post">
-            <div class="date">12.33.2004</div>
-            <h2 class="title">Mein Blog1</h2>
+          <div class="post my-4">
+            <div class="date">$post.getDate()</div>
+            <h2 class="title">$post.getTitle()</h2>
             <p class="content">Lorem ipsum bla bla bla bla bla bla bla bla</p>
           </div>
         </a>
+        #end
       </div>
     </div>
   </body>

@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.lang.Object;
 
 import spark.Request;
 import spark.Response;
@@ -17,8 +18,9 @@ public class Main {
         Database db = new Database();
 
         get("/", (request, response) -> {
+            ArrayList<Post> posts = db.getPosts();
             Map<String, Object> model = new HashMap<>();
-            model.put("message", "Velocity World");
+            model.put("posts", posts);
             return new ModelAndView(model, "home.html");
         }, new VelocityTemplateEngine());
 
