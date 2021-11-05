@@ -31,6 +31,7 @@ public class User {
     public String getBirth() {
         return "" + birthDay + "." + birthMonth + "." + birthYear;
     }
+
     public ArrayList<Topic> getTopics() {
         try {
             ResultSet rs = db.query("select topic.* from favourite, topic where favourite.userName == '" + name + "' and favourite.topicName == topic.topicName");
@@ -46,5 +47,9 @@ public class User {
             System.err.println(e.getMessage());
             return null;
         }
+    }
+
+    public void addFavouriteTopic(Topic topic) {
+        db.update("insert into favourite values('" + name + "', '" + topic.getName() + "')");
     }
 }

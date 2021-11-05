@@ -16,7 +16,12 @@
     <li>$topic.getName():</li>
     <ul>
         #foreach( $user in $topic.getUsers() )
-        <li>$user.getName()</li>
+        <li>user: $user.getName()</li>
+        #end
+    </ul>
+    <ul>
+        #foreach( $post in $topic.getPosts() )
+        <li>post: $post.getTitle()</li>
         #end
     </ul>
     #end
