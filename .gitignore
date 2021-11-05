@@ -1,5 +1,6 @@
 # Compiled class file
 *.class
+java_db/target/
 
 # Log file
 *.log
@@ -23,9 +24,9 @@
 hs_err_pid*
 
 # Jetbrains Garbage
-.idea
+*.idea
 
 maven-status
-.settings
+*.settings
 
-.db
+*.db
