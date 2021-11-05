@@ -15,6 +15,10 @@ import spark.template.velocity.VelocityTemplateEngine;
 public class Main {
 
     public static void main(final String[] args) throws ClassNotFoundException {
+        System.out.println("Starting Webserver, open http://localhost:4567/test in a web browser.");
+        System.out.println();
+        System.out.println();
+        System.out.println();
         Database db = new Database();
 
         get("/", (request, response) -> {
