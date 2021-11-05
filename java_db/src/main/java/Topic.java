@@ -3,17 +3,21 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class Topic {
-    private String name;
+    private String name, description;
 
     private Database db;
 
-    public Topic(String name, Database db) {
+    public Topic(String name, String description, Database db) {
         this.name = name;
+        this.description = description;
         this.db = db;
     }
 
     public String getName() {
         return name;
+    }
+    public String getDescription() {
+        return description;
     }
 
     public ArrayList<User> getUsers() {

@@ -65,7 +65,7 @@ public class Database {
 
         update("create table post (postId int, title char(128), content char(1000000), year int, month int, day int, userName char(128), topicName char(128))");
 
-        update("create table topic (topicName char(128))");
+        update("create table topic (topicName char(128), description char(512))");
         update("create table favourite (userName char(128), topicName char(128))");
     }
 
@@ -75,9 +75,9 @@ public class Database {
         User kathi = createUser("kathi", 1, 12, 24);
         User tim = createUser("tim", 1, 12, 24);
 
-        Topic cheese = createTopic("cheese");
-        Topic trains = createTopic("trains");
-        Topic peace = createTopic("peace");
+        Topic cheese = createTopic("cheese", "Everything there is to know about cheese.");
+        Topic trains = createTopic("trains", "I like trains!");
+        Topic peace = createTopic("peace", "Make Peace, not War.");
 
         chris.addFavouriteTopic(peace);
         chris.addFavouriteTopic(trains);
@@ -120,7 +120,11 @@ public class Database {
             ResultSet rs = query("select * from topic");
             ArrayList<Topic> topics = new ArrayList<Topic>();
             while (rs.next()) {
-                topics.add(new Topic(rs.getString("topicName"), this));
+                topics.add(new Topic(
+                        rs.getString("topicName"),
+                        rs.getString("description"),
+                        this
+                ));
             }
             return topics;
         } catch (SQLException e) {
@@ -132,7 +136,11 @@ public class Database {
     public Topic getTopic(String name) {
         try {
             ResultSet rs = query("select * from topic where topicName == '" + name + "'");
-            return new Topic(rs.getString("topicName"), this);
+            return new Topic(
+                    rs.getString("topicName"),
+                    rs.getString("description"),
+                    this
+            );
         } catch (SQLException e) {
             System.err.println(e.getMessage());
             return null;
@@ -183,9 +191,9 @@ public class Database {
         return user;
     }
 
-    public Topic createTopic(String name) {
-        Topic topic = new Topic(name, this);
-        update("insert into topic values('" + name + "')");
+    public Topic createTopic(String name, String description) {
+        Topic topic = new Topic(name, description, this);
+        update("insert into topic values('" + name + "', '" + description + "')");
         return topic;
     }
 

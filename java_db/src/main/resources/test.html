@@ -4,7 +4,12 @@
     <li>$user.getName(), born on $user.getBirth():</li>
     <ul>
         #foreach( $topic in $user.getTopics() )
-        <li>$topic.getName()</li>
+        <li>favourite topic: $topic.getName()</li>
+        #end
+    </ul>
+    <ul>
+        #foreach( $post in $user.getPosts() )
+        <li>post: $post.getTitle()</li>
         #end
     </ul>
     #end
@@ -13,7 +18,7 @@
 <h1>Topics</h1>
 <ul>
     #foreach( $topic in $topics )
-    <li>$topic.getName():</li>
+    <li>$topic.getName(), $topic.getDescription():</li>
     <ul>
         #foreach( $user in $topic.getUsers() )
         <li>user: $user.getName()</li>

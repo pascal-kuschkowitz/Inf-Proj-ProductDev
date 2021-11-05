@@ -5,15 +5,15 @@ import java.util.ArrayList;
 import java.sql.SQLException;
 
 public class Post {
-    private int postID;
+    private int postId;
     private String title, content;
     private int year, month, day;
     private String userName, topicName;
 
     private Database db;
 
-    public Post(int postID, String title, String content, int year, int month, int day, String userName, String topicName, Database db) {
-        this.postID = postID;
+    public Post(int postId, String title, String content, int year, int month, int day, String userName, String topicName, Database db) {
+        this.postId = postId;
         this.title = title;
         this.content = content;
         this.year = year;
@@ -24,6 +24,9 @@ public class Post {
         this.db = db;
     }
 
+    public int getPostId() {
+        return postId;
+    }
     public String getTitle() {
         return title;
     }
