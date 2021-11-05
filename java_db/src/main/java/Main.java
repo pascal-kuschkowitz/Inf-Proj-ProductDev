@@ -31,7 +31,6 @@ public class Main {
             return new ModelAndView(model, "post.html");
         }, new VelocityTemplateEngine());
 
-
         get("/test", (request, response) -> {
             ArrayList<User> users = db.getUsers();
             ArrayList<Topic> topics = db.getTopics();
@@ -41,6 +40,12 @@ public class Main {
             model.put("topics", topics);
             model.put("posts", posts);
             return new ModelAndView(model, "test.html");
+        }, new VelocityTemplateEngine());
+        post("/query", (request, response) -> {
+            String query = request.queryParams("query");
+            Map<String, Object> model = new HashMap<>();
+            model.put("query", query);
+            return new ModelAndView(model, "query.html");
         }, new VelocityTemplateEngine());
 
         get("/topics", (request, response) -> {

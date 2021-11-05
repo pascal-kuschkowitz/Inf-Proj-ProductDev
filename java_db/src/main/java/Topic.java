@@ -42,7 +42,7 @@ public class Topic {
 
     public ArrayList<Post> getPosts() {
         try {
-            ResultSet rs = db.query("select * from post where topicName == '" + name + "'");
+            ResultSet rs = db.query("select * from post where topicName == '" + name + "' order by year desc, month desc, day desc");
             ArrayList<Post> posts = new ArrayList<Post>();
             while (rs.next()) {
                 posts.add(new Post(

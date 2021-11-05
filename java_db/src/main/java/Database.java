@@ -149,7 +149,7 @@ public class Database {
 
     public ArrayList<Post> getPosts() {
         try {
-            ResultSet rs = query("select * from post");
+            ResultSet rs = query("select * from post order by year desc, month desc, day desc");
             ArrayList<Post> posts = new ArrayList<Post>();
             while (rs.next()) {
                 posts.add(new Post(rs.getInt("postID"), rs.getString("title"), rs.getString("content"),

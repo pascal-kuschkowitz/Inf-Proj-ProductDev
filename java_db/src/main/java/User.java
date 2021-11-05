@@ -52,7 +52,7 @@ public class User {
 
     public ArrayList<Post> getPosts() {
         try {
-            ResultSet rs = db.query("select * from post where userName == '" + name + "'");
+            ResultSet rs = db.query("select * from post where userName == '" + name + "' order by year desc, month desc, day desc");
             ArrayList<Post> posts = new ArrayList<Post>();
             while (rs.next()) {
                 posts.add(new Post(rs.getInt("postID"), rs.getString("title"), rs.getString("content"),
