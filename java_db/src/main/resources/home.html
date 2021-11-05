@@ -115,12 +115,12 @@
       <div class="wrapper">
         <h1>Top blog posts</h1>
 
-        #foreach( $post in $sortTool.sort($posts, "date:desc"))
-        <a href="">
+        #foreach( $post in $posts)
+        <a href="posts/$post.getPostId()">
           <div class="post my-4">
             <div class="date">$post.getDate()</div>
             <h2 class="title">$post.getTitle()</h2>
-            <p class="content">Lorem ipsum bla bla bla bla bla bla bla bla</p>
+            <div class="user" style="text-transform: capitalize">$post.getUser().getName()</div>
           </div>
         </a>
         #end

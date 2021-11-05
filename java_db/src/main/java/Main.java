@@ -24,6 +24,14 @@ public class Main {
             return new ModelAndView(model, "home.html");
         }, new VelocityTemplateEngine());
 
+        get("/posts/:name", (request, response) -> {
+            Post post = db.getPost(Integer.parseInt(request.params(":name")));
+            Map<String, Object> model = new HashMap<>();
+            model.put("post", post);
+            return new ModelAndView(model, "post.html");
+        }, new VelocityTemplateEngine());
+
+
         get("/test", (request, response) -> {
             ArrayList<User> users = db.getUsers();
             ArrayList<Topic> topics = db.getTopics();
