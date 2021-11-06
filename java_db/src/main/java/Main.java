@@ -46,9 +46,11 @@ public class Main {
             return new ModelAndView(model, "test.html");
         }, new VelocityTemplateEngine());
         post("/query", (request, response) -> {
+            String userName = request.queryParams("userName");
             String query = request.queryParams("query");
             Map<String, Object> model = new HashMap<>();
             model.put("query", query);
+            model.put("userName", userName);
             return new ModelAndView(model, "query.html");
         }, new VelocityTemplateEngine());
 
@@ -84,5 +86,20 @@ public class Main {
             Map<String, Object> model = new HashMap<>();
             return new ModelAndView(model, "newPost.html");
         }, new VelocityTemplateEngine());
+
+        post("/queryNewPost", (request, response) -> {
+            String title = request.queryParams("title");
+            String topic = request.queryParams("topic");
+            String userName = request.queryParams("userName");
+            String post = request.queryParams("post");
+
+            Map<String, Object> model = new HashMap<>();
+            model.put("title", title);
+            model.put("topic", topic);
+            model.put("userName", userName);
+            model.put("post", post);
+            return new ModelAndView(model, "queryNewPost.html");
+        }, new VelocityTemplateEngine());
+            
     }
 }

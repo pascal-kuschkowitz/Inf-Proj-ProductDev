@@ -109,47 +109,53 @@
       <div class="wrapper">
         <h1>Add a new post</h1>
         <div class="mb-3">
-          <label for="exampleFormControlInput1" class="form-label"
+        <form action="/queryNewPost" method="POST">
+          <label for="title" class="form-label"
             >Title
           </label>
           <input
             type="text"
             class="form-control"
             id="title"
+            name="title"
             placeholder="Dogs are cool!"
           />
         </div>
         <div class="mb-3">
-          <label for="exampleFormControlInput1" class="form-label"
+          <label for="topic" class="form-label"
             >Topic
           </label>
           <input
             type="text"
             class="form-control"
             id="topic"
+            name="topic"
             placeholder="Animals"
           />
         </div>
         <div class="mb-3">
-          <label for="exampleFormControlInput1" class="form-label"
+          <label for="userName" class="form-label"
             >Username
           </label>
           <input
             type="text"
             class="form-control"
-            id="name"
+            id="userName"
+            name="userName"
             placeholder="Till1234"
           />
         </div>
         <div class="mb-3">
-          <label for="exampleFormControlTextarea1" class="form-label"
+          <label for="post" class="form-label"
             >Your post
           </label>
-          <textarea class="form-control" id="post" rows="5"></textarea>
+          <textarea class="form-control" id="post" name="post" rows="5"></textarea>
         </div>
+        <input type="submit" value="Submit"/>
         <div class="button mb-3">
             <button>Post online</button>
         </div>
+        </form>
       </div>
     </main>
   </body>
