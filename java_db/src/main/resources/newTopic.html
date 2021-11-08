@@ -107,32 +107,26 @@
 
     <main>
       <div class="wrapper">
-        <h1>Add a new post</h1>
+        <h1>Add a new topic</h1>
         <div class="mb-3">
-        <form action="/queryNewUser" method="POST">
+        <form action="/queryNewTopic" method="POST">
             <div class="mb-3">
-                <label for="userName" class="form-label">Username</label>
+                <label for="topicName" class="form-label">Name of topic</label>
           <input
             type="text"
             class="form-control"
-            id="userName"
-            name="userName"
-            placeholder="Till1234"
+            id="topicName"
+            name="topicName"
+            placeholder="animals"
           />
         </div>
         <div class="mb-3">
-          <label for="userBirth" class="form-label"
-            >Your Birthday
+           <label for="topicDescription" class="form-label"
+            >Topic description
           </label>
-          <input
-            type="date"
-            class="form-control"
-            id="userBirth"
-            name="userBirth"
-            placeholder="2001-11-19"
-          />
-            </div>
-            <input class="btn btn-primary" type="submit" value="Submit"/>
+          <textarea class="form-control" id="topicDescription" name="topicDescription" placeholder="This is about animals" rows="5"></textarea>
+        </div>
+        <input class="btn btn-primary" type="submit" value="Submit"/>
         </form>
       </div>
     </main>

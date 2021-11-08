@@ -92,6 +92,11 @@ public class Main {
             return new ModelAndView(model, "newUser.html");
         }, new VelocityTemplateEngine());
 
+        get("/newTopic", (request, response) -> {
+            Map<String, Object> model = new HashMap<>();
+            return new ModelAndView(model, "newTopic.html");
+        }, new VelocityTemplateEngine());
+
         post("/queryNewPost", (request, response) -> {
             String title = request.queryParams("title");
             String topic = request.queryParams("topic");
@@ -135,6 +140,18 @@ public class Main {
             model.put("birthMonth", birthMonth);
             model.put("birthDay", birthDay);
             return new ModelAndView(model, "queryNewUser.html");
+        }, new VelocityTemplateEngine());
+
+        post("/queryNewTopic", (request, response) -> {
+            String topicName = request.queryParams("topicName");
+            String topicDescription = request.queryParams("topicDescription");
+
+            db.createTopic(topicName, topicDescription);
+            
+            Map<String, Object> model = new HashMap<>();
+            model.put("topicName", topicName);
+            model.put("topicDescription", topicDescription);
+            return new ModelAndView(model, "queryNewTopic.html");
         }, new VelocityTemplateEngine());
     }
 }
