@@ -109,34 +109,9 @@
       <div class="wrapper">
         <h1>Add a new post</h1>
         <div class="mb-3">
-        <form action="/queryNewPost" method="POST">
-          <label for="title" class="form-label"
-            >Title
-          </label>
-          <input
-            type="text"
-            class="form-control"
-            id="title"
-            name="title"
-            placeholder="Dogs are cool!"
-          />
-        </div>
-        <div class="mb-3">
-          <label for="topic" class="form-label"
-            >Topic
-          </label>
-          <input
-            type="text"
-            class="form-control"
-            id="topic"
-            name="topic"
-            placeholder="Animals"
-          />
-        </div>
-        <div class="mb-3">
-          <label for="userName" class="form-label"
-            >Username
-          </label>
+        <form action="/queryNewUser" method="POST">
+            <div class="mb-3">
+                <label for="userName" class="form-label">Username</label>
           <input
             type="text"
             class="form-control"
@@ -146,27 +121,18 @@
           />
         </div>
         <div class="mb-3">
-          <label for="date" class="form-label"
-            >Date
+          <label for="userBirth" class="form-label"
+            >Your Birthday
           </label>
           <input
             type="date"
             class="form-control"
-            id="date"
-            name="date"
-            placeholder="2021-11-19"
+            id="userBirth"
+            name="userBirth"
+            placeholder="2001-11-19"
           />
-        </div>
-        <div class="mb-3">
-          <label for="post" class="form-label"
-            >Your post
-          </label>
-          <textarea class="form-control" id="post" name="post" rows="5"></textarea>
-        </div>
-        <input type="submit" value="Submit"/>
-        <div class="button mb-3">
-            <button>Post online</button>
-        </div>
+            </div>
+            <input type="submit" value="Submit"/>
         </form>
       </div>
     </main>

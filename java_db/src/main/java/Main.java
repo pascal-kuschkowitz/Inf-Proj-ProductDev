@@ -87,19 +87,54 @@ public class Main {
             return new ModelAndView(model, "newPost.html");
         }, new VelocityTemplateEngine());
 
+        get("/newUser", (request, response) -> {
+            Map<String, Object> model = new HashMap<>();
+            return new ModelAndView(model, "newUser.html");
+        }, new VelocityTemplateEngine());
+
         post("/queryNewPost", (request, response) -> {
             String title = request.queryParams("title");
             String topic = request.queryParams("topic");
             String userName = request.queryParams("userName");
             String post = request.queryParams("post");
+            String date = request.queryParams("date");
+            String[] parts = date.split("-");
+            int dateYear = Integer.parseInt(parts[0]);
+            int dateMonth = Integer.parseInt(parts[1]); // 03455
+            int dateDay = Integer.parseInt(parts[2]);
+
+            db.createPost(title, post, dateYear, dateMonth , dateDay, db.getUser(userName),  db.getTopic(topic));
 
             Map<String, Object> model = new HashMap<>();
             model.put("title", title);
             model.put("topic", topic);
             model.put("userName", userName);
             model.put("post", post);
+            model.put("date", date);
+            model.put("dateYear", dateYear);
+            model.put("dateMonth", dateMonth);
+            model.put("dateDay", dateDay);
+
             return new ModelAndView(model, "queryNewPost.html");
         }, new VelocityTemplateEngine());
             
+        post("/queryNewUser", (request, response) -> {
+            String userName = request.queryParams("userName");
+            String userBirth = request.queryParams("userBirth");
+            String[] parts = userBirth.split("-");
+            int birthYear = Integer.parseInt(parts[0]);
+            int birthMonth = Integer.parseInt(parts[1]); // 03455
+            int birthDay = Integer.parseInt(parts[2]);
+
+            db.createUser(userName, birthYear, birthMonth, birthDay);
+
+            Map<String, Object> model = new HashMap<>();
+            model.put("userName", userName);
+            model.put("userBirth", userBirth);
+            model.put("birthYear", birthYear);
+            model.put("birthMonth", birthMonth);
+            model.put("birthDay", birthDay);
+            return new ModelAndView(model, "queryNewUser.html");
+        }, new VelocityTemplateEngine());
     }
 }
