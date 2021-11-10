@@ -97,6 +97,11 @@ public class Main {
             return new ModelAndView(model, "newTopic.html");
         }, new VelocityTemplateEngine());
 
+        get("/newFav", (request, response) -> {
+            Map<String, Object> model = new HashMap<>();
+            return new ModelAndView(model, "newFav.html");
+        }, new VelocityTemplateEngine());
+
         post("/queryNewPost", (request, response) -> {
             String title = request.queryParams("title");
             String topic = request.queryParams("topic");
@@ -152,6 +157,18 @@ public class Main {
             model.put("topicName", topicName);
             model.put("topicDescription", topicDescription);
             return new ModelAndView(model, "queryNewTopic.html");
+        }, new VelocityTemplateEngine());
+
+        post("/queryNewFav", (request, response) -> {
+            String userName = request.queryParams("userName");
+            String topicName = request.queryParams("topicName");
+
+           db.getUser(userName).addFavouriteTopic(db.getTopic(topicName)); 
+
+            Map<String, Object> model = new HashMap<>();
+            model.put("userName", userName);
+            model.put("topicName", topicName);
+            return new ModelAndView(model, "queryNewFav.html");
         }, new VelocityTemplateEngine());
     }
 }
