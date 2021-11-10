@@ -15,7 +15,7 @@ import spark.template.velocity.VelocityTemplateEngine;
 public class Main {
 
     public static void main(final String[] args) throws ClassNotFoundException {
-        System.out.println("Starting Webserver, open http://localhost:4567/test in a web browser.");
+        System.out.println("Starting Webserver, open http://localhost:4567 in a web browser.");
         System.out.println();
         System.out.println();
         System.out.println();
@@ -108,7 +108,7 @@ public class Main {
             int dateMonth = Integer.parseInt(parts[1]); // 03455
             int dateDay = Integer.parseInt(parts[2]);
 
-            db.createPost(title, post, dateYear, dateMonth , dateDay, db.getUser(userName),  db.getTopic(topic));
+            db.createPost(title, post, dateYear, dateMonth, dateDay, db.getUser(userName), db.getTopic(topic));
 
             Map<String, Object> model = new HashMap<>();
             model.put("title", title);
@@ -122,7 +122,7 @@ public class Main {
 
             return new ModelAndView(model, "queryNewPost.html");
         }, new VelocityTemplateEngine());
-            
+
         post("/queryNewUser", (request, response) -> {
             String userName = request.queryParams("userName");
             String userBirth = request.queryParams("userBirth");
@@ -147,7 +147,7 @@ public class Main {
             String topicDescription = request.queryParams("topicDescription");
 
             db.createTopic(topicName, topicDescription);
-            
+
             Map<String, Object> model = new HashMap<>();
             model.put("topicName", topicName);
             model.put("topicDescription", topicDescription);
