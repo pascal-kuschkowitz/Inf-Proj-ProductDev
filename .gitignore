@@ -29,4 +29,5 @@ hs_err_pid*
 maven-status
 *.settings
 
+java_db/socialBlog.db
 *.db
