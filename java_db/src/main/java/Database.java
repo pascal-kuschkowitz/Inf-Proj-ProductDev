@@ -70,17 +70,23 @@ public class Database {
     }
 
     private void fill() {
-        User chris = createUser("chris", 1100, 12, 12);
-        User pascal = createUser("pascal", 9999, 10, 1);
-        User kathi = createUser("kathi", 1, 12, 24);
-        User tim = createUser("tim", 1, 12, 24);
+        User chris = createUser("chris", 1999, 30, 2);
+        User pascal = createUser("pascal", 2000, 10, 5);
+        User kathi = createUser("kathi", 0, 12, 24);
+        User tim = createUser("tim", 2002, 1, 1);
 
         Topic cheese = createTopic("cheese", "Everything there is to know about cheese.");
         Topic trains = createTopic("trains", "I like trains!");
+        Topic projects = createTopic("projects", "Don't start IT projects.");
         Topic peace = createTopic("peace", "Make Peace, not War.");
         Topic socialBlog = createTopic("socialBlog", "Documentation about this website.");
 
         pascal.addFavouriteTopic(trains);
+        pascal.addFavouriteTopic(socialBlog);
+        chris.addFavouriteTopic(projects);
+        chris.addFavouriteTopic(socialBlog);
+        kathi.addFavouriteTopic(cheese);
+        tim.addFavouriteTopic(peace);
 
         createPost("Why Trains are the Better Pets", "bam, I like cheese", 2021, 11, 1, chris, trains);
         createPost("Frontends Suck!", "Yes, they do!", 2021, 13, 1, pascal, peace);
