@@ -25,13 +25,15 @@
     Mit der <code>Database db</code> kann beispielsweise <code>db.createUser("chris", 1100, 12, 12);</code> benutzt werden, um einen Nutzer zu erstellen.
     Gleiches gilt für Topics <code>createTopic("cheese", "Everything there is to know about cheese.");</code> und Posts <code>createPost("Why Trains are the Better Pets", "bam, I like cheese", 2021, 11, 1, chris, cheese);</code>.
     Mit <code>db.getTopic("cheese");</code>, <code>db.getUser("chris");</code> und <code>db.getPost(69);</code> können Instanzen mithilfe des jeweiligen Primärschlüssels abgefragt werden.
+    Diese Primaerschluessel werden oft durch einen Parameter in der URL angegeben, was spaeter genauer erlaeutert wird.
     Wenn alle existierenden Topics, Users oder Posts benötigt werden, kann <code>db.getTopics();</code>, <code>db.getUsers();</code> und <code>db.getPosts();</code> verwendet werden.
 </p>
 <p>
     Die Klassen enthalten alle weiteren notwendigen Methoden für den SocialBlog:
     Beispielsweise kann mit dem <code>User tom</code> und dem <code>Topic cars</code> mit dem Aufruf <code>tom.addFavouriteTopic(cars);</code> ein Topic favorisiert werden.
     Genauso kann mit <code>tom.getPosts();</code> und <code>tom.getTopics();</code> die von <code>tom</code> geschriebenen Posts bzw. favorisierten Topics abgefragt werden.
-    Die Klasse <code>Post</code> enthält Methoden um den Autor und das Topic abzurufen, mit dem <code>Post post</code>: <code>post.getUser();</code> und <code>post.getTopic();</code>.
+    Die Klasse <code>Post</code> enthält Methoden um den Autor und das Topic abzurufen, mit dem <code>Post post</code>:<br />
+    <code>post.getUser();</code> und <code>post.getTopic();</code>.
     Diese Methoden geben Instanzen der jeweiligen Klassen zurück.
 </p>
 
@@ -47,19 +49,19 @@
         <th scope="col">Attribute</th>
     </tr>
     <tr>
-        <th scope="row">user</th>
+        <td>user</td>
         <td>userName char(128), birthYear int, birthMonth int, birthDay int</td>
     </tr>
     <tr>
-        <th scope="row">post</th>
+        <td>post</td>
         <td>postId int, title char(128), content char(1000000), year int, month int, day int, userName char(128), topicName char(128)</td>
     </tr>
     <tr>
-        <th scope="row">topic</th>
+        <td>topic</td>
         <td>topicName char(128), description char(512)</td>
     </tr>
     <tr>
-        <th scope="row">favourite</th>
+        <td>favourite</td>
         <td>userName char(128), topicName char(128)</td>
     </tr>
 </table>
