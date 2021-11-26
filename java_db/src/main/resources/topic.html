@@ -15,7 +15,7 @@
       html {
         font: normal 400 20px/1.5;
       }
-      .main {
+      main {
         padding-top: 2rem;
         display: inline-block;
       }
@@ -25,9 +25,6 @@
         margin: 0 auto;
         max-width: 100rem;
         position: relative;
-      }
-      div {
-        display: inline-block;
       }
 
       html {
@@ -68,8 +65,17 @@
         padding: 2rem 0rem;
       }
 
+      .posts {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        justify-items: stretch;
+        grid-gap: 2rem;
+        padding-top: 2rem;
+      }
+
       .post {
         display: inline-block;
+        width: 100%;
         padding: 2rem 3rem;
         box-shadow: 0px 0px 22px 7px rgba(0, 0, 0, 0.03);
       }
@@ -82,7 +88,7 @@
     <main>
       <div class="wrapper">
         <h1 style="text-transform: capitalize">$topic.getName()</h1>
-        <p>$topic.getDescription();</p>
+        <p>$topic.getDescription()</p>
 
         <h2>These are the latest posts in this topic:</h2>
 
