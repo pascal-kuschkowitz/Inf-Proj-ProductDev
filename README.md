@@ -1,6 +1,6 @@
 # Social Blog
 
-A small database project that runs on the web.
+A small database project that runs on the web. Don't try it at home!
 
 ## Run
 
