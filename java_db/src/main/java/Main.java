@@ -15,10 +15,16 @@ import spark.template.velocity.VelocityTemplateEngine;
 public class Main {
 
     public static void main(final String[] args) throws ClassNotFoundException {
-        System.out.println("Starting Webserver, open http://localhost:4567 in a web browser.");
         System.out.println();
         System.out.println();
         System.out.println();
+        System.out.println("===========================*********************====================");
+        System.out.println("= Starting Webserver, open http://localhost:4567 in a web browser. =");
+        System.out.println("===========================*********************====================");
+        System.out.println();
+        System.out.println();
+        System.out.println();
+        System.out.println("These errors are to be ignored:");
         Database db = new Database();
 
         get("/", (request, response) -> {
@@ -31,6 +37,11 @@ public class Main {
         get("/header", (request, response) -> {
             Map<String, Object> model = new HashMap<>();
             return new ModelAndView(model, "header.html");
+        }, new VelocityTemplateEngine());
+
+        get("/docs", (request, response) -> {
+            Map<String, Object> model = new HashMap<>();
+            return new ModelAndView(model, "docs.html");
         }, new VelocityTemplateEngine());
 
         get("/posts/:name", (request, response) -> {
