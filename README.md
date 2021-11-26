@@ -1,5 +1,7 @@
 # Social Blog
 
+A small database project that runs in the web.
+
 ## Run
 
 - download `.jar` from [here](https://github.com/pascal-kuschkowitz/Inf-Proj-ProductDev/releases/latest)
