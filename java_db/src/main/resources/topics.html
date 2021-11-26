@@ -9,6 +9,8 @@
       integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
       crossorigin="anonymous"
     />
+    <script type="text/javascript" src="assets/js/includeHTML.js"></script>
+
     <title>Social Blog</title>
     <style>
       html {
@@ -20,12 +22,9 @@
       }
       .wrapper {
         padding: 2rem 10rem;
-        box-sizing: content-box;
-        margin: 0 auto;
-        max-width: 100rem;
-        position: relative;
       }
-      div {
+
+      div.main {
         display: inline-block;
       }
 
@@ -41,7 +40,6 @@
 
       body {
         height: 100%;
-        // font: inherit;
       }
 
       main {
@@ -59,7 +57,6 @@
       a:hover,
       a:visited,
       a:active {
-        display: inline;
         color: inherit;
         text-decoration: none;
       }
@@ -79,55 +76,19 @@
 
       .topic {
         display: inline-block;
-        padding: 2rem 3rem;
+        height: 100%;
+        width: 100%;
+        padding: 1rem 2rem;
+        padding-top: 2rem;
         box-shadow: 0px 0px 22px 7px rgba(0, 0, 0, 0.03);
       }
     </style>
   </head>
 
   <body>
-    <header>
-      <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container-fluid">
-          <a class="navbar-brand" href="/">Social Blog</a>
-          <button
-            class="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-              <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="/">Home</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="/users">Users</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="/topics">Topics</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="/newPost">New Post</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="/newUser">New User</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="/newTopic">New Topic</a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </nav>
-    </header>
+    <div include-html="header"></div>
 
-    <main>
+    <main class="main">
       <div class="wrapper">
         <h1>Choose your favorite topic!</h1>
 
@@ -146,3 +107,7 @@
     </main>
   </body>
 </html>
+
+<script>
+  includeHTML();
+</script>

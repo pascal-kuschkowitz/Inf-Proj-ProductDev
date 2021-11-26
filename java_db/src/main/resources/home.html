@@ -8,6 +8,10 @@
       integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
       crossorigin="anonymous"
     />
+
+    <!-- Script for loading html from other pages -->
+    <script type="text/javascript" src="./assets/js/includeHTML.js"></script>
+
     <title>Social Blog</title>
     <style>
       html {
@@ -33,8 +37,17 @@
         padding: 2rem 0rem;
       }
 
+      .posts {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        justify-items: stretch;
+        grid-gap: 2rem;
+        padding-top: 2rem;
+      }
+
       .post {
         display: inline-block;
+        width: 100%;
         padding: 2rem 3rem;
         box-shadow: 0px 0px 22px 7px rgba(0, 0, 0, 0.03);
       }
@@ -42,66 +55,30 @@
   </head>
 
   <body>
-    <header>
-      <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container-fluid">
-          <a class="navbar-brand" href="/">Social Blog</a>
-          <button
-            class="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-              <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="/">Home</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="/users">Users</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="/topics">Topics</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="/newPost">New Post</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="/newUser">New User</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="/newTopic">New Topic</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="/newFav">New Favorite</a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </nav>
-    </header>
+    <div include-html="header"></div>
 
     <div class="main">
       <div class="wrapper">
         <h1>Top blog posts</h1>
 
-        #foreach( $post in $posts)
-        <a href="posts/$post.getPostId()">
-          <div class="post my-4">
-            <div class="date">$post.getDate()</div>
-            <h2 class="title">$post.getTitle()</h2>
-            <div class="user" style="text-transform: capitalize">
-              $post.getUser().getName()
+        <div class="posts">
+          #foreach( $post in $posts)
+          <a href="posts/$post.getPostId()">
+            <div class="post">
+              <div class="date">$post.getDate()</div>
+              <h2 class="title">$post.getTitle()</h2>
+              <div class="user" style="text-transform: capitalize">
+                $post.getUser().getName()
+              </div>
             </div>
-          </div>
-        </a>
-        #end
+          </a>
+          #end
+        </div>
       </div>
     </div>
   </body>
 </html>
+
+<script>
+  includeHTML();
+</script>

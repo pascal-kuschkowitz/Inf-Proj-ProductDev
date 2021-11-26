@@ -77,7 +77,7 @@ public class Main {
             ArrayList<User> users = db.getUsers();
             Map<String, Object> model = new HashMap<>();
             model.put("users", users);
-            return new ModelAndView(model, "userss.html");
+            return new ModelAndView(model, "users.html");
         }, new VelocityTemplateEngine());
 
         get("/users/:name", (request, response) -> {
