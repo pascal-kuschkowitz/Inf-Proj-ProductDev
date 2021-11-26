@@ -28,6 +28,11 @@ public class Main {
             return new ModelAndView(model, "home.html");
         }, new VelocityTemplateEngine());
 
+        get("/header", (request, response) -> {
+            Map<String, Object> model = new HashMap<>();
+            return new ModelAndView(model, "header.html");
+        }, new VelocityTemplateEngine());
+
         get("/posts/:name", (request, response) -> {
             Post post = db.getPost(Integer.parseInt(request.params(":name")));
             Map<String, Object> model = new HashMap<>();
@@ -101,6 +106,13 @@ public class Main {
             Map<String, Object> model = new HashMap<>();
             return new ModelAndView(model, "newFav.html");
         }, new VelocityTemplateEngine());
+
+        // Js files
+        get("/assets/js/includeHTML.js", (request, response) -> {
+            Map<String, Object> model = new HashMap<>();
+            return new ModelAndView(model, "./assets/js/includeHTML.js");
+        }, new VelocityTemplateEngine());
+
 
         post("/queryNewPost", (request, response) -> {
             String title = request.queryParams("title");
