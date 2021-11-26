@@ -44,8 +44,8 @@ public class Main {
             return new ModelAndView(model, "docs.html");
         }, new VelocityTemplateEngine());
 
-        get("/posts/:name", (request, response) -> {
-            Post post = db.getPost(Integer.parseInt(request.params(":name")));
+        get("/posts/:id", (request, response) -> {
+            Post post = db.getPost(Integer.parseInt(request.params(":id")));
             Map<String, Object> model = new HashMap<>();
             model.put("post", post);
             return new ModelAndView(model, "post.html");

@@ -1,3 +1,10 @@
+<style>
+h2 {
+    padding-top: 1rem;
+    /* padding-bottom: 1rem; */
+}
+</style>
+
 <!-- title: SocialBlog Dokumentation -->
 <!-- topic: SocialBlog -->
 <meta http-equiv="content-type" content="text/html; charset=utf-8">
@@ -16,16 +23,17 @@
     Genauso können für jedes Topic alle Posts mit diesem Topic gelistet werden.
 </p>
 
-<h2>Objektorientierte Abbildung der Datenbank</h2>
+<h2 id="db">Objektrelationale Abbildung der Datenbank</h2>
 
 <p>
     Für jede Tabelle der Datenbank existiert eine Java-Klasse, die die entsprechenden Attribute enthält.
     Dadurch wird eine objektorientierte Abstraktion der Datenbank verwendet, wodurch der "Nutzer" der Datenbank&mdash;das Webframework&mdash;keinen einzigen SQL Befehl ausführen muss.
+    Diese ist eine objektrelationale Abbildung der zugrundeliegenden SQL-Datenbank.
     Die zentrale <code>Database</code> Klasse wird für die Erstellung und Abfrage von Instanzen der jeweiligen Tabellen verwendet.
     Mit der <code>Database db</code> kann beispielsweise <code>db.createUser("chris", 1100, 12, 12);</code> benutzt werden, um einen Nutzer zu erstellen.
     Gleiches gilt für Topics <code>createTopic("cheese", "Everything there is to know about cheese.");</code> und Posts <code>createPost("Why Trains are the Better Pets", "bam, I like cheese", 2021, 11, 1, chris, cheese);</code>.
     Mit <code>db.getTopic("cheese");</code>, <code>db.getUser("chris");</code> und <code>db.getPost(69);</code> können Instanzen mithilfe des jeweiligen Primärschlüssels abgefragt werden.
-    Diese Primaerschluessel werden oft durch einen Parameter in der URL angegeben, was spaeter genauer erlaeutert wird.
+    Diese Primärschlüssel werden oft durch einen Parameter in der URL angegeben, was später genauer erläutert wird.
     Wenn alle existierenden Topics, Users oder Posts benötigt werden, kann <code>db.getTopics();</code>, <code>db.getUsers();</code> und <code>db.getPosts();</code> verwendet werden.
 </p>
 <p>
@@ -33,9 +41,78 @@
     Beispielsweise kann mit dem <code>User tom</code> und dem <code>Topic cars</code> mit dem Aufruf <code>tom.addFavouriteTopic(cars);</code> ein Topic favorisiert werden.
     Genauso kann mit <code>tom.getPosts();</code> und <code>tom.getTopics();</code> die von <code>tom</code> geschriebenen Posts bzw. favorisierten Topics abgefragt werden.
     Die Klasse <code>Post</code> enthält Methoden um den Autor und das Topic abzurufen, mit dem <code>Post post</code>:<br />
-    <code>post.getUser();</code> und <code>post.getTopic();</code>.
+    <code>post.getUser();</code> und <code>post.getTopic();</code><br />
     Diese Methoden geben Instanzen der jeweiligen Klassen zurück.
 </p>
+
+<h2>Frontend & Backend</h2>
+Auf der Website "SocialBlog" werden die Daten der Datenbank graphisch dargestellt.
+Dafür liefert die objektrelationale Abbildung der Datenbank die entsprechenden Befehle, welche unter <a href="#db"><b>Objektrelationale Abbildung der Datenbank</b></a> beschreiben sind. 
+
+Eine Page wird in <code>Main.java</code> durch den Befehl<br/><br/>
+<code><pre>
+get("/endpoint_of_page", (request, response) -> {
+    ArrayList<Post> posts = db.getPosts();
+    Map<String, Object> model = new HashMap<>();
+    model.put("posts", posts);
+    return new ModelAndView(model, "link/to/template.html");
+}, new VelocityTemplateEngine());
+</pre></code>
+Definiert.
+Sie wird aus einem HTML-Template gerendert, wobei Posts aus der Datenbank in dem Template als <code>$posts</code> verfügbar gemacht werden.
+Der Nutzer kann das ausgefüllte Template schliesslich unter "/endpoint_of_page" aufrufen; der Endpoint entspricht demnach der Adresse, die der Nutzer eingeben muss.
+
+Wenn ein Nutzer Veränderungen an der Datenbank vornehmen möchte, bspw. ein neues Topic erstellen, kann er dies auf der entsprechenden Page (in diesem Fall <code>newTopic</code>) vornehmen.
+Der Nutzer gibt seine Änderungen in Input-Tags ein und deren Inhalt wird mit einem POST-HTML-Request zum Backend gesendet.
+Dort wird dieser ausgewertet <code>String topicName = request.queryParams("topicName");</code> und anschließend durch Befehle wie <code> db.createTopic(topicName, topicDescription);</code> zur Datenbank hinzugefügt.
+
+<h2>Endpoints</h2>
+<table class="table mb-5 mt-4">
+    <tr>
+        <th scope="col-5">Endpoint</th>
+        <th scope="col">Funktion</th>
+    </tr>
+    <tr>
+        <td>home</td>
+        <td>Die neusten Posts werden angezeigt (alle xD).</td>
+    </tr>
+    <tr>
+        <td>posts/:id</td>
+        <td>Der Posts mit der entsprechenden id wird angezeigt.</td>
+    </tr>
+    <tr>
+        <td>topics</td>
+        <td>Alle Topics werden dargestellt.</td>
+    </tr>
+    <tr>
+        <td>topics/:name</td>
+        <td>Alle Posts, die diesem Topic angehören, werden gelistet.</td>
+    </tr>
+    <tr>
+        <td>users</td>
+        <td>Alle Nutzer werden verlinkt.</td>
+    </tr>
+    <tr>
+        <td>users/:name</td>
+        <td>Die Posts des Nutzers mit dem entsprechenden Namen werden dargestellt.</td>
+    </tr>
+    <tr>
+        <td>newTopic</td>
+        <td>Ein neues Topic kann erstellt werden.</td>
+    </tr>
+    <tr>
+        <td>newPost</td>
+        <td>Ein neuer Posts wird verfasst.</td>
+    </tr>
+    <tr>
+        <td>newUser</td>
+        <td>Ein neuer Nutzer wird geboren.</td>
+    </tr>
+    <tr>
+        <td>newFav</td>
+        <td>Ein Nutzer favorisiert ein Topic.</td>
+    </tr>
+</table>
 
 <h3>ER-Modell</h3>
 
@@ -43,7 +120,7 @@
 
 <h3>RM-Modell</h3>
 
-<table class="table">
+<table class="table mb-5 mt-4">
     <tr>
         <th scope="col">Tabellenname</th>
         <th scope="col">Attribute</th>
